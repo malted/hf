@@ -1,0 +1,61 @@
+---
+export enum CtaVariant {
+	Main,
+	Sub
+}
+
+interface Props {
+	href: string;
+	variant: CtaVariant;
+}
+
+const { href, variant = CtaVariant.Main }: Props = Astro.props;
+
+const vars = {
+	[CtaVariant.Main]: {
+		padding: "2rem 3rem",
+		colour: "var(--white)",
+		backgroundColour: "var(--accent)",
+		filter: "invert(1)"
+	},
+	[CtaVariant.Sub]: {
+		padding: "1.25rem 1.875rem",
+		colour: "var(--black)",
+		backgroundColour: "var(--accent-light)",
+		filter: "invert(0)"
+	}
+}[variant];
+---
+
+<a {href}>
+	<slot />
+	<img src="/icons/enter.svg" />
+</a>
+
+<style define:vars={vars}>
+	a {
+		display: flex;
+		margin: auto;
+		padding: var(--padding);
+		width: fit-content;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5em;
+		flex-shrink: 0;
+
+		font-family: var(--font-sans);
+		font-size: 1.3rem;
+		font-weight: bold;
+		text-decoration: none;
+
+		border-radius: var(--br);
+
+		color: var(--colour);
+		background-color: var(--backgroundColour);
+	}
+
+	img {
+		filter: var(--filter);
+		height: 1em;
+	}
+</style>

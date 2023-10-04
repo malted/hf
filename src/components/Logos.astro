@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+
+import collective128 from "/public/128-collective.png";
+import first from "/public/first.png";
+import charityNavigator from "/public/charity-navigator.svg";
+---
+
+<div id="container">
+	<Image src={collective128} alt="128 collective logo" />
+	<Image src={first} alt="first robotics logo" />
+	<Image src={charityNavigator} alt="charity navigator logo" />
+</div>
+
+<style>
+	#container {
+		display: flex;
+		justify-content: space-between;
+		border: 1px solid red;
+	}
+
+	img {
+		filter: saturate(0%);
+		height: 6rem;
+		width: auto;
+	}
+</style>

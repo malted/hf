@@ -1,0 +1,190 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+
+:root {
+	--white: white;
+	--black: #222;
+	--bg: var(--white);
+	--accent: #3fb977;
+	--accent-light: rgba(124, 73, 233, 0.15);
+
+	--br: 0.5rem;
+	--br2: calc(var(--br) / 2);
+
+	--nav-height: 3rem;
+
+	--font-serif: "IBM Plex Serif", serif;
+	--font-sans: "IBM Plex Sans", sans-serif;
+
+	--section-gap: 5rem;
+
+	font-family: var(--font-sans);
+	text-align: center;
+
+	background-color: var(--bg);
+	color: var(--black);
+
+	--red: #ec3750;
+	--orange: #ff8c37;
+	--yellow: #f1c40f;
+	--green: #33d6a6;
+	--cyan: #5bc0de;
+	--blue: #338eda;
+	--purple: #a633d6;
+	--muted: #8492a6;
+
+	--border-col: #e5e5e5;
+}
+
+body {
+	margin: 0;
+	position: relative;
+	text-wrap: balance;
+}
+* {
+	box-sizing: border-box;
+	/* border: 1px solid red; */
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--section-gap);
+}
+
+section {
+	width: 100%;
+}
+
+.content {
+	max-width: 75%;
+	margin: auto;
+}
+
+.thinner {
+	max-width: 80%;
+}
+.prose {
+	max-width: 60ch;
+}
+
+/* main {
+
+} */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-serif);
+}
+
+h1 {
+	font-size: 3.5rem;
+}
+h2 {
+	font-size: 2rem;
+}
+h3 {
+	font-size: 1.5rem;
+}
+
+.subheading {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+em,
+strong {
+	color: var(--accent);
+}
+strong {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1em;
+}
+
+.divided {
+	display: flex;
+	/*flex-flow: row wrap;*/
+	align-items: flex-start;
+	justify-content: space-between;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	& > * {
+		flex: 1 1 0;
+		position: relative;
+		text-align: center;
+		border: 1px solid red;
+	}
+}
+
+.grid {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	gap: 1em;
+	align-self: stretch;
+	flex-wrap: wrap;
+
+	margin: 1em 0;
+	& > * {
+		margin: 0;
+	}
+}
+.col {
+	flex-direction: column;
+}
+.glass {
+	background: #ffffff80;
+	backdrop-filter: blur(10px);
+}
+
+ul.ticks {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	list-style: none;
+	padding: 0;
+	width: fit-content;
+	margin: auto;
+
+	& > li {
+		display: flex;
+		align-items: center;
+		gap: 1ch;
+
+		padding: 0.625rem;
+		outline: 1px solid var(--border-col);
+		background: #ffffff80;
+		backdrop-filter: blur(10px);
+
+		/* list-style-image does not offer enough flexibility */
+		&::before {
+			content: "";
+			display: inline-block;
+			height: 1em;
+			aspect-ratio: 1;
+			background-image: url("/public/icons/checkmark.svg");
+			background-repeat: no-repeat;
+		}
+
+		&:first-of-type {
+			border-radius: var(--br2) var(--br2) 0 0;
+		}
+		&:last-of-type {
+			border-radius: 0 0 var(--br2) var(--br2);
+		}
+	}
+}

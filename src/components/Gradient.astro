@@ -1,0 +1,27 @@
+---
+const { cycle = 0 } = Astro.props;
+
+const colours = [
+    "#B9ECDB", /* Accent green 80% l */
+    "#7CDAB7", /* Accent green 60% l */
+    "#ffffff", /* white */
+    "#f3f3f2", /* Darker white */
+];
+---
+
+<canvas id=`gradient-canvas-${cycle}` data-transition-in data-idx={cycle} />
+
+<style define:vars={{
+    "gradient-color-1": colours[(cycle + 0) % colours.length],
+    "gradient-color-2": colours[(cycle + 1) % colours.length],
+    "gradient-color-3": colours[(cycle + 2) % colours.length],
+    "gradient-color-4": colours[(cycle + 3) % colours.length],
+}}>
+	canvas {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		inset: 0;
+		z-index: -10;
+	}
+</style>

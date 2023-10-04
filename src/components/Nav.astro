@@ -1,0 +1,40 @@
+<nav class="glass">
+	<div class="content flex h-full">
+		<a href="/" id="title">The Hack Foundation</a>
+
+		<a href="/features">Features</a>
+	</div>
+</nav>
+<div id="pushdown" aria-hidden="true"></div>
+
+<style>
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	nav {
+		position: fixed;
+
+		height: var(--nav-height);
+		left: 0;
+		right: 0;
+		top: 0;
+	}
+
+	#title {
+		font-weight: bold;
+		font-size: 1.2rem;
+	}
+
+	.content {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	#pushdown {
+		height: var(--nav-height);
+	}
+</style>

@@ -1,0 +1,37 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Gradient from "../components/Gradient.astro";
+
+interface Props {
+	title: string;
+	background: boolean;
+}
+
+const { title, background = true } = Astro.props;
+
+import "../lib/globals.css";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<Nav />
+
+		{ background ? <Gradient /> : null }
+
+		<main class="content">
+			<slot />
+		</main>
+
+		<Footer />
+	</body>
+</html>

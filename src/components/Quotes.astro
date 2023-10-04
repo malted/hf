@@ -1,0 +1,128 @@
+---
+const quotes = [
+	{
+		name: "1",
+		role: "Founder, The New World’s Fair",
+		text: "“The product delivers on its promises. The team is absolutely incredible. I would yell from the top of a mountain how incredible working with Melanie has been… she’s super responsive, I’ve had her help me in the middle of the night.”"
+	},
+	{
+		name: "2",
+		role: "Co-founder & Head Editor, Reboot",
+		text: "“Every time we get a grant from our philanthropic partners, they’re looking for paperwork to sign from the fiscal sponsor. Mel in touch with the contacts directly and gets everything signed. The fact that i can’t tell you off the top of my head what they need is pretty telling.” "
+	},
+	{
+		name: "3",
+		role: "Founder, Miami Hack Week",
+		text: "“The product delivers on its promises. The team is absolutely incredible. I would yell from the top of a mountain how incredible working with Melanie has been… she’s super responsive, I’ve had her help me in the middle of the night.”"
+	},
+	{
+		name: "4",
+		role: "Founder, The New World’s Fair",
+		text: "“The product delivers on its promises. The team is absolutely incredible. I would yell from the top of a mountain how incredible working with Melanie has been… she’s super responsive, I’ve had her help me in the middle of the night.”"
+	},
+	{
+		name: "5",
+		role: "Co-founder & Head Editor, Reboot",
+		text: "“Every time we get a grant from our philanthropic partners, they’re looking for paperwork to sign from the fiscal sponsor. Mel in touch with the contacts directly and gets everything signed. The fact that i can’t tell you off the top of my head what they need is pretty telling.” "
+	},
+	{
+		name: "6",
+		role: "Founder, Miami Hack Week",
+		text: "“The product delivers on its promises. The team is absolutely incredible. I would yell from the top of a mountain how incredible working with Melanie has been… she’s super responsive, I’ve had her help me in the middle of the night.”"
+	}
+];
+
+const count = 4;
+---
+
+<div id="parent">
+	{
+		Array.from({ length: count }).flatMap((_, idx) => (
+			<div id={`g-${idx}`}>
+				{quotes.map((q, index) => (
+					<div class={`glass quote quote-${index}`}>
+						<p style="grid-area: title">{q.text}</p>
+						<img src="/favicon.svg" style="grid-area: photo" />
+						<div style="grid-area: attr">
+							<b>
+								{idx}: {q.name}
+							</b>
+							<p>{q.role}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		))
+	}
+</div>
+
+<style>
+	#parent {
+		background-color: #ff000040;
+		max-width: none;
+		width: 100vw;
+		position: relative;
+		overflow: hidden;
+		text-wrap: wrap;
+
+		& > *:nth-child(1) {
+			animation: scroll 10s linear infinite;
+		}
+		& > *:nth-child(2) {
+			animation: scroll 10s linear 2.5s infinite;
+		}
+		& > *:nth-child(3) {
+			animation: scroll 10s linear 5s infinite;
+		}
+		& > *:nth-child(4) {
+			animation: scroll 10s linear 7.5s infinite;
+		}
+
+		& > div {
+			position: absolute;
+		}
+
+		.quote {
+			positon: absolute;
+			width: 100%;
+			left: 100%;
+
+			display: grid;
+			grid-template-columns: auto 1fr;
+			grid-template-rows: auto auto;
+			gap: 0px 0px;
+			grid-template-areas:
+				"title title"
+				"photo attr";
+			gap: 1em;
+			justify-content: center;
+			align-items: center;
+			align-content: center;
+
+			border-radius: var(--br);
+			text-align: left;
+			padding: 2rem;
+			width: 30rem;
+		}
+	}
+
+	img {
+		width: 4em;
+	}
+
+	* {
+		margin: 0;
+	}
+
+	@keyframes scroll {
+		0% {
+			left: 100%;
+		}
+		50% {
+			left: -100%;
+		}
+		100% {
+			left: -100%;
+		}
+	}
+</style>

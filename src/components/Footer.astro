@@ -1,0 +1,97 @@
+---
+const thfLinks = [
+	{ name: "Philosophy", href: "https://hackclub.com/philosophy" },
+	{ name: "Team & Board", href: "https://hackclub.com/team" },
+	{ name: "Careers", href: "https://jobs.hackclub.com" },
+	{ name: "Press Enquiries", href: "TODO" },
+	{ name: "Donate", href: "https://hackclub.com/donate" },
+	{ name: "Hack Club", href: "https://hackclub.com" }
+];
+const board = [
+	{ name: "Zach Latta", href: "https://github.com/zachlatta" },
+	{ name: "Christina Asquith", href: "https://twitter.com/ChristinaAsquit" },
+	{ name: "Tom Preston-Werner", href: "https://twitter.com/mojombo" },
+	{ name: "Quinn Slack", href: "https://twitter.com/sqs" }
+];
+
+const filings = Object.keys(import.meta.glob("/public/990s/*")).map((f) => ({
+	year: f.split("/").pop().split(".").shift(),
+	href: f.split("/").slice(2).join("/")
+}));
+---
+
+<footer class="glass">
+	<div class="content">
+		<div id="link-groups-container" class="grid">
+			<div class="links">
+				<p class="title">The Hack Foundation</p>
+				{thfLinks.map(({ name, href }) => <a {href}>{name}</a>)}
+			</div>
+
+			<div class="links">
+				<p class="title">Board Of Directors</p>
+				{board.map(({ name, href }) => <a {href}>{name}</a>)}
+			</div>
+
+			<div class="links">
+				<a class="title" href="/990s">Public Filings (990s)</a>
+				{filings.map(({ year, href }) => <a {href}>{year}</a>)}
+			</div>
+		</div>
+
+		<div id="footers-foot" class="flex">
+			<p>© 2023 The Hack Foundation. 501(c)(3) nonprofit (EIN: 81-2908499)</p>
+			<p>1-855-625-HACK (call toll-free)</p>
+		</div>
+	</div>
+</footer>
+
+<style>
+	footer {
+		margin-top: var(--section-gap);
+		width: 100%;
+
+		--padding-edges: 2rem;
+		--padding-inter: 3rem;
+
+		padding-top: var(--padding-edges);
+		.content > * {
+			padding-bottom: var(--padding-inter);
+		}
+		.content > *:last-child {
+			padding-bottom: var(--padding-edges);
+		}
+
+		#link-groups-container {
+			align-items: flex-start;
+			justify-content: space-between;
+
+			.links {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-areas: "title title";
+				height: fit-content;
+				gap: 1em;
+
+				.title {
+					grid-area: title;
+					font-weight: bold;
+					font-size: 1.2rem;
+				}
+			}
+		}
+	}
+
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	* {
+		margin: 0;
+	}
+
+	#footers-foot {
+		color: var(--accent);
+	}
+</style>

@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+
+import miamiHackWeek from "/public/stories/miami-hack-week.jpeg";
+import newWorldsFair from "/public/stories/new-worlds-fair.jpeg";
+import raicesCyber from "/public/stories/raices-cyber.jpeg";
+import reboot from "/public/stories/reboot.png";
+
+const stories = [
+	{
+		img: newWorldsFair,
+		alt: "new world's fair banner",
+		caption: "Eliminating startup costs for The New World’s Fair"
+	},
+	{
+		img: miamiHackWeek,
+		alt: "",
+		caption: "Cutting down administrative burden for Reboot"
+	},
+	{
+		img: raicesCyber,
+		alt: "",
+		caption: "Bolstering team purchases for Miami Hack Week"
+	},
+	{
+		img: reboot,
+		alt: "",
+		caption: "Powering Raíces Cyber’s annual fundraising"
+	}
+];
+---
+
+<div id="container">
+	{
+		stories.map((s) => (
+			<figure class="study">
+				<Image src={s.img} alt={s.alt} />
+				<figcaption>{s.caption}</figcaption>
+			</figure>
+		))
+	}
+</div>
+
+<style>
+	#container {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+
+		width: 100%;
+		margin: auto;
+		gap: 1rem;
+
+		.study {
+			height: 10rem;
+			background-color: #ff000040;
+			border-radius: var(--br);
+		}
+	}
+</style>

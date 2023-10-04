@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const filings = Object.keys(import.meta.glob("/public/990s/*")).map((f) => ({
+	year: f.split("/").pop().split(".").shift(),
+	href: f.split("/").slice(2).join("/")
+}));
+---
+
+<Layout title="990 Filings">
+	<header>
+		<h1>Public 990 Filings</h1>
+		<h3>
+			As a registered 501(c)(3) nonprofit, The&nbsp;Hack&nbsp;Foundation releases its annual 990
+			filings to the public.
+		</h3>
+	</header>
+	<ol>
+		{
+			filings.map(({ year, href }) => (
+				<li>
+					<a {href}>{year}</a>
+				</li>
+			))
+		}
+	</ol>
+</Layout>
+
+<style>
+	ol {
+		padding: 0;
+		list-style: none;
+
+		& li {
+			font-size: 1.5rem;
+			margin: 0.5em 0;
+		}
+	}
+</style>
