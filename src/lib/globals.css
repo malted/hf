@@ -57,7 +57,7 @@ section {
 }
 
 .content {
-	max-width: 75%;
+	max-width: 75rem; /* 1200px */
 	margin: auto;
 }
 

@@ -1,0 +1,163 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Showcase from "../components/Showcase.astro";
+import Cta, { CtaVariant } from "../components/Cta.astro";
+import Table from "../components/Table.astro";
+import CaseStudies from "../components/CaseStudies.astro";
+import Quotes from "../components/Quotes.astro";
+import Team from "../components/Team.astro";
+import Logos from "../components/Logos.astro";
+import Changelog from "../components/Changelog.astro";
+import Faq from "../components/Faq.astro";
+
+const staticStats = [
+	{
+		title: "0 seconds",
+		body: "is what you’ll spend on taxes and accounting. We take care of that for you."
+	},
+	{
+		title: "3 minutes",
+		body: "is all it takes to apply and be invited to your new account."
+	},
+	{
+		title: "3 days",
+		body: "is the longest it will take for you to hear back from your point of contact."
+	},
+	{
+		title: "4+ hours",
+		body: "is what our platform will save you weekly on financial tasks."
+	}
+];
+---
+
+<Layout title="The Hack Foundation">
+	<header>
+		<h1>Fiscal sponsorship for <em>today's</em> nonprofits.</h1>
+		<p class="subheading">
+			Obtain 501(c)(3) nonprofit status in minutes, not months.<br />
+			<span style="font-weight: normal;">
+				We grant our member organizations 501(c)(3) non-profit status and provide them with
+				modern-day tools for managing their money.
+			</span>
+		</p>
+	</header>
+
+	<Showcase />
+
+	<p>
+		Organizations that use HCB can send and accept money instantly.<br />
+		<a>Learn more</a>
+	</p>
+	<Cta href="https://hackclub.com/hcb/apply" variant={CtaVariant.Main}>Become a nonprofit</Cta>
+
+	<section>
+		<h2>We give you time to put your mission <i>first</i>.</h2>
+		<p>
+			With paperless reimbursements, instant transfers, and virtual debit cards, our platform saves
+			members hours of work each week.
+		</p>
+		<div class="divided">
+			{
+				staticStats.map(({ title, body }) => (
+					<div>
+						<p class="md">
+							<>
+								<strong>{title}</strong>
+								<br />
+							</>
+							{body}
+						</p>
+					</div>
+				))
+			}
+		</div>
+
+		<h3>Read how we have transformed work for some of our organizations:</h3>
+
+		<CaseStudies />
+	</section>
+
+	<section>
+		<h2>Getting started costs <em>$0</em>.</h2>
+		<p>
+			We don’t have any startup fees. In fact, you’ll never pay us anything directly. Instead, we
+			charge a <em>7%</em> fee on funds raised.
+		</p>
+		<Table />
+		<a>See how our fee structure compares to other options →</a>
+
+		<h3>What do the numbers say?</h3>
+		<div class="grid">
+			<p><strong>$10,012,295.66</strong> transacted to date</p>
+			<p>We’ve processed <strong>29,912</strong> transactions</p>
+			<p>The last transaction was <strong>7 hours</strong> ago</p>
+			<p>
+				On average it’s <strong>120x</strong> quicker to obtain nonprofit status through The Hack
+				Foundation than the IRS
+			</p>
+		</div>
+	</section>
+
+	<Cta href="https://hackclub.com/hcb/apply" variant={CtaVariant.Main}>
+		Apply now and hear back by the next weekday
+	</Cta>
+
+	<section class="prose">
+		<Team />
+		<h2>We’ll be your finance team.</h2>
+		<p>
+			The Hack Foundation itself a 501(c)(3) non-profit, <br />
+			 so nonprofit finances are pretty much our specialty.
+		</p>
+
+		<ul class="ticks">
+			<li>We provide guidance on complex deals & large donations.</li>
+			<li>We provide ongoing access to historical financial data.</li>
+			<li>Our accountants regularly reconcile your books.</li>
+			<li>We handle ongoing tax filings, including EOY taxes!</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>We come well-recommended.</h2>
+		<Logos />
+
+		<figure>
+			<blockquote>
+				“Hack Club Bank Climate's fiscal sponsorship program removes funding barriers with a blend
+				of youth-centered, tech-savvy services and a deep commitment to authentic youth empowerment
+				that resonates with 128 Collective's mission to create a climate safe future.”
+			</blockquote>
+			<figcaption>Kate Goss, Executive Director of 128 Collective</figcaption>
+		</figure>
+
+		<Quotes />
+
+		<Cta href="https://hackclub.com/hcb/apply" variant={CtaVariant.Main}>
+			Apply now and hear back by the next weekday
+		</Cta>
+	</section>
+
+	<section>
+		<h2>We’re innovators at heart</h2>
+		<p>
+			Our platform evolves with the changing needs of today’s nonprofits. Through consistent
+			feedback and innovation, we ensure our tools remain the gold standard for organizations
+			worldwide.
+		</p>
+
+		<h3>Recent platform updates</h3>
+		<Changelog />
+	</section>
+
+	<section>
+		<h2>Good questions</h2>
+		<p>
+			We’ve answered some of our favorite questions below – we get them a lot! If you still need
+			help, send us a message.
+		</p>
+
+		<Faq />
+	</section>
+</Layout>
