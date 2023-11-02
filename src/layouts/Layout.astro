@@ -1,7 +1,7 @@
 ---
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import Gradient from "../components/Gradient.astro";
+import Background from "../components/Background.astro";
 
 interface Props {
 	title: string;
@@ -25,13 +25,16 @@ import "../lib/globals.css";
 	</head>
 	<body>
 		<Nav />
+        
+		{ background ?
+        <Background>
+            <main class="content">
+                <slot />
+            </main>
+        </Background>
+        : null }
 
-		{ background ? <Gradient /> : null }
-
-		<main class="content">
-			<slot />
-		</main>
-
+	
 		<Footer />
 	</body>
 </html>

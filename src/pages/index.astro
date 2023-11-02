@@ -32,25 +32,28 @@ const staticStats = [
 ---
 
 <Layout title="The Hack Foundation">
-	<header>
-		<h1>Fiscal sponsorship for <em>today's</em> nonprofits.</h1>
-		<p class="subheading">
-			Obtain 501(c)(3) nonprofit status in minutes, not months.<br />
-			<span style="font-weight: normal;">
-				We grant our member organizations 501(c)(3) non-profit status and provide them with
-				modern-day tools for managing their money.
-			</span>
-		</p>
-	</header>
+    <div /> <!-- Trigger section gap for the top of the first section -->
 
-	<Showcase />
+    <section>
+        <h1>Fiscal sponsorship<br />for <em>today's</em> nonprofits.</h1>
+        <p class="subheading">
+            Obtain 501(c)(3) nonprofit status in minutes, not months.<br />
+            <span style="font-weight: normal;">
+                We grant our member organizations 501(c)(3) non-profit status and provide them with
+                modern-day tools for managing their money.
+            </span>
+         </p>
 
-	<p>
-		Organizations that use HCB can send and accept money instantly.<br />
-		<a>Learn more</a>
-	</p>
-	<Cta href="https://hackclub.com/hcb/apply" variant={CtaVariant.Main}>Become a nonprofit</Cta>
+        <Showcase />
 
+        <p>
+            Organizations that use HCB can send and accept money instantly.<br />
+            <a>Learn more</a>
+        </p>
+
+        <Cta href="https://hackclub.com/hcb/apply" variant={CtaVariant.Main}>Become a nonprofit</Cta>
+    </section>
+<!--
 	<section>
 		<h2>We give you time to put your mission <i>first</i>.</h2>
 		<p>
@@ -160,4 +163,5 @@ const staticStats = [
 
 		<Faq />
 	</section>
+	-->
 </Layout>

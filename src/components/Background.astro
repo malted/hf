@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Gradient from "../components/Gradient.astro";
+import Gradient from "./Gradient.astro";
 ---
 
 <script>
@@ -8,7 +8,8 @@ import Gradient from "../components/Gradient.astro";
 
 	const gradientWrapper = document.getElementById("gradient-wrapper");
 	const gradients = [...gradientWrapper.children];
-	const sections = document.querySelectorAll("section");
+	const sections = document.querySelectorAll("main > section");
+    sections.forEach((el, idx) => (el.dataset.idx = idx));
 
 	function observerCallback(entryRaw: IntersectionObserverEntry[]) {
 		const entry = entryRaw[0];
@@ -31,7 +32,6 @@ import Gradient from "../components/Gradient.astro";
 
 	gradients.forEach((el) => {
 		const gradient = new Gradient();
-        console.log(el);
 		//@ts-ignore
 		gradient.initGradient("#" + el.id.split(" ").find((i) => i.startsWith("gradient-canvas-")));
 	})
@@ -44,23 +44,7 @@ import Gradient from "../components/Gradient.astro";
 	<Gradient cycle={3} />
 </div>
 
-<div id="container">
-	<section data-idx=0>
-		<img src="/demo/one.png" />
-	</section>
-	<section data-idx=1>
-		<img src="/demo/two.png" />
-	</section>
-	<section data-idx=2>
-		<img src="/demo/three.png" />
-	</section>
-	<section data-idx=3>
-		<img src="/demo/four.png" />
-	</section>
-	<section data-idx=3>
-		<img src="/demo/five.png" />
-	</section>
-</div>
+<slot />
 
 <style>
 	:global(body) {
@@ -77,21 +61,5 @@ import Gradient from "../components/Gradient.astro";
 	}
 	:global(canvas.current-gradient) {
 		opacity: 1;
-	}
-
-	#container {
-		display: flex;
-		flex-direction: column;
-		gap: 4rem;
-	}
-
-	section {
-		display: flex;
-		justify-content: center;
-	}
-
-	img {
-		width: 100%;
-		max-width: 70rem;
 	}
 </style>

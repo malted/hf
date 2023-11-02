@@ -1,10 +1,46 @@
-<div></div>
+---
+import HCB from "./top/hcb.astro";
+import Cheque from "./top/cheques.astro";
+import Invoice from "./top/invoices.astro";
+---
 
-<style>
-	div {
-		background: #ff000040;
-		width: 100%;
-		height: 25rem;
-		border-radius: var(--br);
-	}
-</style>
+<script>
+    import anime from "animejs";
+
+    anime.timeline()
+    .add({
+        targets: ".transaction",
+        scale: [0.3, 1],
+        translateY: ["-100%", 0],
+        opacity: [0, 1],
+        translateZ: 0,
+        easing: "easeInOutExpo",
+        duration: 1_600,
+        delay: (el, i) => 100 * i,
+    })
+    .add({
+        targets: "p .letter",
+        scale: [0, 1],
+        opacity: [0, 1],
+        translateZ: 0,
+        easing: "easeInOutExpo",
+        duration: 500,
+        delay: (el, i) => 25 * i
+    })
+    //}, "-=1600")
+    .add({
+        targets: '.sig path',
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: 'easeInOutSine',
+        duration: 1_000,
+        // delay: function(el, i) { return i * 250 },
+    });
+</script>
+
+<div class="flex items-end gap-4 w-full border border-red-500">
+    <HCB />
+    <div class="flex col grow">
+        <Invoice />
+        <Cheque />
+    </div>
+</div>
