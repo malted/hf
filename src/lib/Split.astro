@@ -1,0 +1,14 @@
+---
+const { word, classes = "" } = Astro.props;
+---
+
+{word.split("").map((ch) => (
+    <span class={`letter ${classes}`}>{ch.replace(" ", "\u00A0")}</span>
+))}
+
+<style>
+    .letter {
+        opacity: 0;
+        display: inline-block;
+    }
+</style>

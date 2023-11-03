@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Gradient from "./Gradient.astro";
+---
+
+<script>
+	import { Gradient } from "../lib/gradient.js";
+
+	const currentGradientClassName = "current-gradient";
+
+	const gradientWrapper = document.getElementById("gradient-wrapper");
+	const gradients = [...gradientWrapper.children];
+	const sections = document.querySelectorAll("main > section");
+
+    // Initialise the first one
+    gradients[0].classList.add(currentGradientClassName)
+
+	function observerCallback(entries: IntersectionObserverEntry[]) {
+        const entry = entries[0];
+        if (!entry.isIntersecting) return;
+
+        gradients.forEach((el, idx) => el.classList.toggle(currentGradientClassName, idx === entry.target.dataset.idx))
+	}
+
+	const observer = new IntersectionObserver(observerCallback, { threshold: 0.75 });
+
+	sections.forEach(observer.observe.bind(observer))
+
+	gradients.forEach((el) => {
+		const gradient = new Gradient();
+		//@ts-ignore
+		gradient.initGradient("#" + el.id.split(" ").find((i) => i.startsWith("gradient-canvas-")));
+	})
+</script>
+
+<div id="gradient-wrapper">
+	<Gradient cycle={0} />
+	<Gradient cycle={1} />
+	<Gradient cycle={2} />
+	<Gradient cycle={3} />
+</div>
+
+<slot />
+
+<style>
+	:global(body) {
+		margin: 0;
+	}
+
+	#gradient-wrapper {
+		display: contents;
+	}
+
+	:global(canvas) {
+		opacity: 0;
+		transition: opacity 0.75s;
+	}
+	:global(canvas.current-gradient) {
+		opacity: 1;
+	}
+</style>
