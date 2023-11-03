@@ -1,0 +1,48 @@
+---
+import { faker } from "@faker-js/faker";
+import Split from "../../lib/Split.astro";
+
+const invoiceDetails = {
+	amount: faker.finance.amount(100, 10_000, 2, "$", true),
+	email:
+		faker.person.firstName() +
+		"@" +
+		faker.word.sample({ length: { min: 2, max: 5 } }) +
+		"." +
+		faker.internet.domainSuffix()
+};
+---
+
+<div
+	id="invoice"
+	class="flex col items-start justify-between gap-4 p-5 grow h-fit text-muted-darker bg-white border border-muted-medium rounded-md"
+>
+	<p class="text-xl font-medium">Send an invoice</p>
+
+	<div class="flex col gap-2 w-full">
+		<div class="w-0 h-1 rounded bg-muted placeholder-line"></div>
+		<div class="w-0 h-1 rounded bg-muted placeholder-line"></div>
+	</div>
+
+	<div class="flex col items-start gap-1 w-full">
+		<p class="text-xs">Amount</p>
+		<div class="bg-muted px-2 py-1 rounded w-full">
+			<p class="text-left text-lg">
+				<Split word={invoiceDetails.amount} />
+			</p>
+		</div>
+	</div>
+
+	<div class="flex col items-start gap-1 w-full">
+		<p class="text-xs">Email</p>
+		<div class="bg-muted px-2 py-1 rounded w-full">
+			<p class="text-left text-sm whitespace-nowrap overflow-hidden">
+				<Split word={invoiceDetails.email} />
+			</p>
+		</div>
+	</div>
+
+	<div class="bg-muted px-2 py-1 rounded w-full">
+		<p class="text-lg">Send →</p>
+	</div>
+</div>

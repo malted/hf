@@ -1,0 +1,85 @@
+---
+import { faker } from "@faker-js/faker";
+import { ToWords } from "to-words";
+import Signature from "./Signature.astro";
+import Split from "../../lib/Split.astro";
+
+const toWords = new ToWords({
+	localeCode: "en-US",
+	converterOptions: {
+		currency: false,
+		ignoreDecimal: false,
+		ignoreZeroCurrency: false
+	}
+});
+
+const amount = faker.finance.amount();
+const [main, dec] = amount.split(".");
+
+const amountWords = `${toWords.convert(main)} and ${dec}/100`;
+
+const chequeDetails = {
+	date: faker.date.recent().toLocaleDateString(),
+	payee: "Malted Wheaties, Hack Club",
+	amount: "$" + amount,
+	amountWords,
+	memo: faker.finance.transactionDescription(),
+	routingNumber: faker.finance.routingNumber(),
+	accountNumber: faker.finance.accountNumber()
+};
+---
+
+<div
+	id="cheque"
+	class="flex col items-start justify-between gap-6 p-5 grow h-fit text-muted-darker bg-white border border-muted-medium rounded-md relative overflow-hidden"
+>
+	<img
+		src="/icons/hcb-simple-green.svg"
+		alt=""
+		class="absolute h-[140%] inset-y-[-70px] left-[-100px] opacity-5"
+	/>
+
+	<div class="cheque-body flex w-full justify-between">
+		<p class="text-xl font-medium">Check deposit</p>
+		<p>
+			<Split word={chequeDetails.date} />
+		</p>
+	</div>
+
+	<div class="cheque-body flex w-full justify-between border-b border-muted">
+		<p>
+			<Split word={chequeDetails.payee} />
+		</p>
+		<p>
+			<Split word={chequeDetails.amount} />
+		</p>
+	</div>
+
+	<div class="cheque-body flex w-full justify-between border-b border-muted">
+		<p>
+			<Split word={chequeDetails.amountWords} />
+		</p>
+		<p>Dollars</p>
+	</div>
+
+	<div class="flex col w-full justify-between gap-4">
+		<div class="cheque-body flex w-full justify-between items-end relative">
+			<div class="flex items-start gap-2 h-fit text-text-green italic font-medium">
+				<img src="/icons/hcb-simple-green.svg" alt="hcb icon" />
+				<p>HCB</p>
+			</div>
+			<div class="sig border-b border-muted absolute right-0">
+				<Signature />
+			</div>
+		</div>
+
+		<div id="micr" class="flex w-full gap-12 text-xs font-micr">
+			<p>
+				<Split word={"T" + chequeDetails.routingNumber + "T"} />
+			</p>
+			<p>
+				<Split word={chequeDetails.accountNumber} />
+			</p>
+		</div>
+	</div>
+</div>

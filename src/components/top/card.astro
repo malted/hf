@@ -1,0 +1,92 @@
+---
+import { faker } from "@faker-js/faker";
+import Split from "../../lib/Split.astro";
+
+const cardholderName = faker.person.fullName();
+const cardNumber = faker.finance.creditCardNumber("#### #### #### ####");
+const future = faker.date.future();
+const expiryDate =
+	(future.getMonth() + 1).toString().padStart(2, "0") +
+	"/" +
+	future.getFullYear().toString().split("").slice(-2).join("");
+const cvv = faker.finance.creditCardCVV();
+---
+
+<script>
+	import VanillaTilt from "vanilla-tilt";
+	import anime from "animejs";
+
+	const container = document.querySelector("#cards-container");
+
+	let flipped = false;
+	let animating = false;
+	container.onmousedown = () => {
+		if (animating) return;
+		animating = true;
+		flipped = !flipped;
+
+		anime({
+			targets: "#cards-container #card",
+			rotateY: !flipped ? [180, 0] : [0, 180],
+			easing: "easeOutExpo",
+			duration: 500
+		});
+
+		anime({
+			targets: "#cards-container #card2",
+			rotateY: flipped ? [180, 0] : [0, 180],
+			easing: "easeOutExpo",
+			duration: 500
+		});
+
+		setTimeout(() => (animating = false), 300);
+	};
+
+	VanillaTilt.init(container, {
+		max: 30,
+		speed: 400,
+		perspective: 500,
+		reverse: true,
+		scale: 1.1
+	});
+</script>
+
+<div
+	id="cards-container"
+	class="relative grow h-fit w-full aspect-[1.5859/1] text-muted-darker text-xs"
+>
+	<div
+		id="card"
+		class="absolute flex col items-start justify-between p-5 w-full h-full border bg-white border border-muted-medium rounded-md"
+		style="transform: rotateY(0deg);"
+	>
+		<div></div>
+		<img src="/chip.svg" />
+		<div class="flex items-end justify-between w-full">
+			<p class="text-left"><Split word={cardholderName} /></p>
+			<img src="/icons/hcb-simple-green.svg" class="w-5" />
+		</div>
+	</div>
+
+	<div
+		id="card2"
+		class="absolute flex col items-start justify-between w-full h-full border bg-white border border-muted-medium rounded-md overflow-hidden"
+		style="transform: rotateY(180deg);"
+	>
+		<div class="w-full bg-black h-5 mt-4"></div>
+
+		<div class="flex col p-5">
+			<p>NO: <Split word={cardNumber} /></p>
+			<div class="flex gap-4">
+				<p>EXP: <Split word={expiryDate.toString()} /></p>
+				<p>CVV: <Split word={cvv} /></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	#cards-container > * {
+		backface-visibility: hidden;
+	}
+</style>

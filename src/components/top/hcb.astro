@@ -1,106 +1,125 @@
 ---
 import { faker } from "@faker-js/faker";
 import ms from "ms";
+import Split from "../../lib/Split.astro";
 
-const cardholders = [
-    "https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9",
-    "https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9",
-    "https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9",
-    "https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9",
-    "https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9",
-];
+const eventName = faker.company
+	.buzzPhrase()
+	.split(" ")
+	.map((w) => w[0].toUpperCase() + w.slice(1))
+	.join(" ");
+const eventBalance = faker.finance.amount(100, 10_000, 2, "", true);
 
-const transactions = Array
-.from({ length: 10 }, () => ({
-    avatar: faker.image.urlLoremFlickr(),
-    ms: faker.date.recent().getTime(),
-    amount: (Math.random() < 0.8 ? "-" : "+") + faker.finance.amount({ min: 0, max: 1_000, dec: 2, symbol: '$' }),
-    memo: faker.commerce.productName()
-}))
-.filter((t) => !t.memo.includes("withdraw"))
-.sort((a, b) => b.ms - a.ms)
-.slice(0, 5);
+const cardholders = Array.from(
+	{ length: 5 },
+	() => "https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9"
+);
+
+const transactions = Array.from({ length: 10 }, () => {
+	const negative = Math.random() < 0.8;
+	return {
+		avatar: faker.image.urlLoremFlickr(),
+		ms: faker.date.recent().getTime(),
+		amount:
+			(negative ? "-" : "+") + faker.finance.amount({ min: 0, max: 1_000, dec: 2, symbol: "$" }),
+		memo: faker.commerce.productName(),
+		negative
+	};
+})
+	.filter((t) => !t.memo.includes("withdraw"))
+	.sort((a, b) => b.ms - a.ms)
+	.slice(0, 5);
 ---
 
-<div id="container" class="flex col items-start gap-6 p-5 text-muted-darker grow">
-    <div class="flex gap-4 items-center">
-        <img class="rounded-full w-12" src="https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9">
-        <p class="text-2xl font-medium">Klickitat Teaching Garden</p>
-    </div>
+<div
+	id="hcb"
+	class="flex col items-start justify-between gap-6 p-5 grow h-fit text-muted-darker bg-white border border-muted-medium rounded-md"
+>
+	<div class="flex gap-4 items-center">
+		<img
+			class="rounded-full w-12"
+			src="https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9"
+		/>
+		<p id="event-name" class="text-2xl font-medium">
+			<Split word={eventName} />
+		</p>
+	</div>
 
-    <div class="flex gap-4">
-        <div class="flex col w-full items-start gap-1">
-            <p class="text-xs">ACCOUNT BALANCE</p>
-            <p class="text-xl inline-flex gap-1 items-center">
-                <span class="text-sm">$</span>
-                12,345.67
-            </p>
-        </div>
+	<div class="flex gap-4">
+		<div class="flex col w-full items-start gap-1">
+			<p class="text-xs">ACCOUNT BALANCE</p>
+			<p class="text-xl inline-flex gap-1 items-center">
+				<span class="text-sm">$</span>
+				<span id="event-balance">
+					<Split word={eventBalance} />
+				</span>
+			</p>
+		</div>
 
-        <div class="w-1 bg-muted" />
+		<div class="w-1 bg-muted"></div>
 
-        <div class="flex col items-start gap-1">
-            <p class="text-xs whitespace-nowrap">5 CARDHOLDERS</p>
-            <div class="flex row">
-                { cardholders.map((url) => (<img src={url} alt="avatar" class="rounded-full w-6 mx-[-0.25rem] border border-red-500" />)) }
-            </div>
-        </div>
-    </div>
+		<div class="flex col items-start gap-1">
+			<p class="text-xs whitespace-nowrap">5 CARDHOLDERS</p>
+			<div class="flex row">
+				{
+					cardholders.map((url) => (
+						<img src={url} alt="avatar" class="rounded-full w-6 mx-[-0.25rem] border" />
+					))
+				}
+			</div>
+		</div>
+	</div>
 
-    <div class="flex col gap-2 w-full">
-        <p class="text-left text-xl">Transactions</p>
-        <hr />
-        <div class="flex gap-2">
-            <div class="flex gap-1 items-center px-2 w-full border border-muted rounded-md">
-                <img src="/icons/search.svg" alt="search" class="w-6" />
-                <p>Search</p>
-            </div>
-            <!--
+	<div class="flex col gap-2 w-full">
+		<p class="text-left text-xl">Transactions</p>
+		<hr />
+		<div class="flex gap-2">
+			<div class="flex gap-1 items-center px-2 w-full border border-muted rounded-md">
+				<img src="/icons/search.svg" alt="search" class="w-6" />
+				<p>Search</p>
+			</div>
+			<!--
                 <div>
                     <img />
                     <p>Filter</p>
                 </div>
             -->
-        </div>
+		</div>
 
-        <div class="flex col gap-1 w-full rounded-lg overflow-hidden text-left">
-            {transactions.map((t) => (
-                <div class="transaction flex justify-between items-center bg-[#F1F1F1] px-2 py-2 w-full translate-y-[-100000px]">
-                    <img src={t.avatar} class="rounded-full w-5 h-5 object-cover" alt="placeholder avatar" />
-                    <time class="w-16 text-sm">{ms(Date.now() - t.ms)} ago</time>
-                    <p class="w-64 text-sm">{t.memo}</p>
-                    <p class="text-sm">{t.amount}</p>
-                </div>
-            ))}
-        </div>
-    </div>
+		<div class="flex col gap-1 w-full rounded-lg overflow-hidden text-left">
+			{
+				transactions.map((t) => (
+					<div class="transaction flex justify-between items-center bg-[#F1F1F1] px-2 py-2 w-full translate-y-[-100000px]">
+						<img
+							src={t.avatar}
+							class="rounded-full w-5 h-5 object-cover"
+							alt="placeholder avatar"
+						/>
+						<time class="w-32 text-sm">{ms(Date.now() - t.ms)} ago</time>
+						<p class="w-64 text-sm">{t.memo}</p>
+						<p class={`w-20 text-sm text-right ${t.negative ? "text-red-500" : "text-text-green"}`}>
+							{t.amount}
+						</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
 </div>
 
 <style>
-    #container {
-        flex-direction: column;
-        justify-content: space-between;
+	#title-container {
+		display: flex;
 
-        border-radius: 0.375rem;
-        border: 1px solid #E5E5E5;
-
-        background: #FFF;
-
-        backdrop-filter: blur(6px);
-    }
-
-    #title-container {
-        display: flex;
-
-        & p {
-            color: #767676;
-            text-align: center;
-            font-family: IBM Plex Sans;
-            font-size: 1.5rem;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-            margin: 0;
-        }
-    }
+		& p {
+			color: #767676;
+			text-align: center;
+			font-family: IBM Plex Sans;
+			font-size: 1.5rem;
+			font-style: normal;
+			font-weight: 500;
+			line-height: normal;
+			margin: 0;
+		}
+	}
 </style>

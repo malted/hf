@@ -70,8 +70,8 @@
 	--br2: calc(var(--br) / 2);
 
 	--section-gap: 5rem;
-	--section-internal-gap: 3rem;
-	--nav-height: 4.5rem;
+	--section-internal-gap: 2.5rem;
+	--nav-height: 3.5rem;
 }
 
 body {
@@ -99,7 +99,7 @@ section {
 }
 
 .content {
-	max-width: 75rem; /* 1200px */
+	max-width: 70rem; /* 1200px */
 	margin: auto;
 }
 
@@ -132,12 +132,6 @@ h2 {
 }
 h3 {
 	font-size: 1.5rem !important;
-}
-
-.subheading {
-	margin: 0;
-	font-size: 1.5rem;
-	font-weight: 500;
 }
 
 em,

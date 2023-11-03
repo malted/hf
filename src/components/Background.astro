@@ -6,24 +6,20 @@ import Gradient from "./Gradient.astro";
 <script>
 	import { Gradient } from "../lib/gradient.js";
 
+	const currentGradientClassName = "current-gradient";
+
 	const gradientWrapper = document.getElementById("gradient-wrapper");
 	const gradients = [...gradientWrapper.children];
 	const sections = document.querySelectorAll("main > section");
-    sections.forEach((el, idx) => (el.dataset.idx = idx));
 
-	function observerCallback(entryRaw: IntersectionObserverEntry[]) {
-		const entry = entryRaw[0];
-		if (!entry.isIntersecting) return;
+    // Initialise the first one
+    gradients[0].classList.add(currentGradientClassName)
 
-		const currentCycle = entry.target.dataset.idx;
-		console.log(currentCycle)
-		gradients.forEach((el) => {
-			if (el.dataset.idx === currentCycle) {
-				el.classList.add("current-gradient")
-			} else {
-				el.classList.remove("current-gradient")
-			}
-		})
+	function observerCallback(entries: IntersectionObserverEntry[]) {
+        const entry = entries[0];
+        if (!entry.isIntersecting) return;
+
+        gradients.forEach((el, idx) => el.classList.toggle(currentGradientClassName, idx === entry.target.dataset.idx))
 	}
 
 	const observer = new IntersectionObserver(observerCallback, { threshold: 0.75 });
