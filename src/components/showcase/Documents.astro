@@ -1,0 +1,43 @@
+---
+import { faker } from "@faker-js/faker";
+import Split from "../../lib/Split.svelte";
+import Card from "../Card.svelte";
+import Rotator from "./components/Rotator.svelte";
+
+const invoiceDetails = {
+	amount: faker.finance.amount(100, 10_000, 2, "$", true),
+	email:
+		faker.person.firstName() +
+		"@" +
+		faker.word.sample({ length: { min: 2, max: 5 } }) +
+		"." +
+		faker.internet.domainSuffix()
+};
+---
+
+<Card id="documents" classes="justify-start grow-0">
+	<p class="text-xl font-medium">Legal documents</p>
+
+	<div class="flex col gap-2 w-full">
+		<div class="w-0 h-1 rounded bg-muted placeholder-line"></div>
+		<div class="w-0 h-1 rounded bg-muted placeholder-line"></div>
+		<div class="w-0 h-1 rounded bg-muted placeholder-line"></div>
+	</div>
+
+	<Rotator id="doctypes" client:only="svelte">
+		<p id="doctypes-1">Form<br />W-9</p>
+		<p id="doctypes-2">Certificate of<br />Status</p>
+		<p id="doctypes-3">IRS 501(c)(3)<br />Document</p>
+		<p id="doctypes-4">Fiscal Sponsorship<br />Confirmation</p>
+		<p id="doctypes-5">Donor<br />Reciepts</p>
+		<p id="doctypes-6">Event liability<br />release forms</p>
+	</Rotator>
+</Card>
+
+<style>
+	:global(#doctypes p) {
+		opacity: 0;
+		position: absolute;
+		transform: rotateX(90deg);
+	}
+</style>

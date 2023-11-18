@@ -2,21 +2,23 @@
 const { cycle = 0 } = Astro.props;
 
 const colours = [
-    "#D7F4EA", /* Accent green 80% L -> HSL(160, 57%, 90%) */
-    "#9CE3C9", /* Accent green 60% L -> HSL(158, 56%, 75%) */
-    "#ffffff", /* white */
-    "#f3f3f2", /* Darker white */
+	"#D7F4EA" /* Accent green 80% L -> HSL(160, 57%, 90%) */,
+	"#9CE3C9" /* Accent green 60% L -> HSL(158, 56%, 75%) */,
+	"#ffffff" /* white */,
+	"#f3f3f2" /* Darker white */
 ];
 ---
 
-<canvas id=`gradient-canvas-${cycle}` data-transition-in data-idx={cycle} />
+<canvas id=`gradient-canvas-${cycle}` data-transition-in data-idx={cycle}></canvas>
 
-<style define:vars={{
-    "gradient-color-1": colours[(cycle + 0) % colours.length],
-    "gradient-color-2": colours[(cycle + 1) % colours.length],
-    "gradient-color-3": colours[(cycle + 2) % colours.length],
-    "gradient-color-4": colours[(cycle + 3) % colours.length],
-}}>
+<style
+	define:vars={{
+		"gradient-color-1": colours[(cycle + 0) % colours.length],
+		"gradient-color-2": colours[(cycle + 1) % colours.length],
+		"gradient-color-3": colours[(cycle + 2) % colours.length],
+		"gradient-color-4": colours[(cycle + 3) % colours.length]
+	}}
+>
 	canvas {
 		width: 100%;
 		height: 100%;
@@ -25,4 +27,3 @@ const colours = [
 		z-index: -10;
 	}
 </style>
-

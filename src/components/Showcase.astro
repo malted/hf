@@ -1,22 +1,43 @@
 ---
-import HCB from "./top/hcb.astro";
-import Cheque from "./top/cheque.astro";
-import Invoice from "./top/invoice.astro";
-import Card from "./top/card.astro";
+import HCB from "./showcase/HCB.svelte";
+import Cheque from "./showcase/Cheque.astro";
+import Invoice from "./showcase/Invoice.astro";
+import CreditCard from "./showcase/CreditCard.astro";
+import Transfers from "./showcase/Transfers.astro";
+import Documents from "./showcase/Documents.astro";
 ---
 
 <script>
 	import anime from "animejs";
 
+	anime({
+		targets: "#hcb #hero-img",
+		translateY: [0, "-41rem"],
+		opacity: [0, 1],
+		delay: 0,
+		easing: "easeInOutExpo",
+		duration: 1_800
+	});
+	anime({
+		targets: "#hcb #garden-container",
+		translateY: ["-100%", 0],
+		delay: 0,
+		easing: "easeInOutExpo",
+		duration: 2_000
+	});
+
+	//#region Documents section
+
+	//#endregion
+
 	anime
-		.timeline()
+		.timeline({ easing: "easeInOutExpo", delay: 0 })
 		.add(
 			{
 				targets: "#hcb #event-name .letter",
 				scale: [0, 1],
 				opacity: [0, 1],
 				translateZ: 0,
-				easing: "easeInOutExpo",
 				duration: 500,
 				delay: (el, i) => 25 * i
 			},
@@ -28,11 +49,18 @@ import Card from "./top/card.astro";
 				scale: [0, 1],
 				opacity: [0, 1],
 				translateZ: 0,
-				easing: "easeInOutExpo",
 				duration: 500,
 				delay: (el, i) => 25 * i
 			},
 			0
+		)
+		.add(
+			{
+				targets: "#hcb img.avatar",
+				translateX: [0, (el, idx) => idx * 16],
+				duration: 1000
+			},
+			100
 		)
 		.add(
 			{
@@ -41,18 +69,16 @@ import Card from "./top/card.astro";
 				translateY: ["-100%", 0],
 				opacity: [0, 1],
 				translateZ: 0,
-				easing: "easeInOutExpo",
 				duration: 1_600,
 				delay: (el, i) => 100 * i
 			},
-			-500
+			0
 		)
 		.add(
 			{
 				targets: "#cards-container p .letter",
 				scale: [0, 1],
 				opacity: [0, 1],
-				easing: "easeInOutExpo",
 				duration: 500,
 				delay: (el, i) => 25 * i
 			},
@@ -62,7 +88,6 @@ import Card from "./top/card.astro";
 			{
 				targets: "#invoice .placeholder-line",
 				width: (_, i) => [0, i === 1 ? "75%" : "100%"],
-				easing: "easeInOutExpo",
 				duration: 800,
 				delay: (el, i) => 150 * i
 			},
@@ -73,7 +98,6 @@ import Card from "./top/card.astro";
 				targets: "#invoice p .letter",
 				scale: [0, 1],
 				opacity: [0, 1],
-				easing: "easeInOutExpo",
 				duration: 500,
 				delay: (el, i) => 25 * i
 			},
@@ -81,10 +105,18 @@ import Card from "./top/card.astro";
 		)
 		.add(
 			{
+				targets: "#documents .placeholder-line",
+				width: (_, i) => [0, i === 2 ? "40%" : "100%"],
+				duration: 800,
+				delay: (el, i) => 150 * i
+			},
+			700
+		)
+		.add(
+			{
 				targets: "#cheque .cheque-body p .letter",
 				scale: [0, 1],
 				opacity: [0, 1],
-				easing: "easeInOutExpo",
 				duration: 500,
 				delay: (el, i) => 20 * i
 			},
@@ -96,7 +128,6 @@ import Card from "./top/card.astro";
 				translateY: ["100%", 0],
 				rotateX: ["90deg", 0],
 				opacity: [1, 1],
-				easing: "easeInOutExpo",
 				duration: 500,
 				delay: (el, i) => 50 * i
 			},
@@ -115,14 +146,17 @@ import Card from "./top/card.astro";
 </script>
 
 <div class="flex items-end gap-4 w-full">
-	<HCB />
+	<div class="w-3/5"><HCB /></div>
 	<div class="flex col gap-4 grow">
 		<div class="flex gap-4 grow">
 			<div class="flex col gap-4 grow">
-				<Card />
+				<CreditCard />
 				<Invoice />
 			</div>
-			<div class="w-1/2"></div>
+			<div class="flex col gap-4 justify-end">
+				<Transfers />
+				<Documents />
+			</div>
 		</div>
 		<Cheque />
 	</div>

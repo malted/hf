@@ -25,16 +25,21 @@ import "../lib/globals.css";
 	</head>
 	<body>
 		<Nav />
-        
-		{ background ?
-        <Background>
-            <main class="content">
-                <slot />
-            </main>
-        </Background>
-        : null }
 
-	
+		{
+			background ? (
+				<Background>
+					<main class="content">
+						<slot />
+					</main>
+				</Background>
+			) : (
+				<main class="content">
+					<slot />
+				</main>
+			)
+		}
+
 		<Footer />
 	</body>
 </html>

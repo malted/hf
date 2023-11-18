@@ -1,0 +1,23 @@
+---
+import Card from "../Card.svelte";
+import Rotator from "./components/Rotator.svelte";
+---
+
+<Card id="transfers">
+	<p class="text-xl font-medium">Transfers</p>
+
+	<Rotator id="trans" client:only="svelte">
+		<p id="trans-1">Mailed check</p>
+		<p id="trans-2">PayPal</p>
+		<p id="trans-3">ACH</p>
+		<p id="trans-4">HCB</p>
+	</Rotator>
+</Card>
+
+<style>
+	:global(#trans p) {
+		opacity: 0;
+		position: absolute;
+		transform: rotateX(90deg);
+	}
+</style>
