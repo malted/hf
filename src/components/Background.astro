@@ -21,8 +21,6 @@ import Gradient from "./Gradient.astro";
 
 		if (!entry.isIntersecting) return;
 
-		console.log(entry.target.dataset.idx);
-
 		gradients.forEach((el, idx) =>
 			el.classList.toggle(
 				currentGradientClassName,
