@@ -3,6 +3,7 @@
 	import anime from "animejs";
 
 	export let id;
+	export let classes;
 	let slotContainer;
 
 	onMount(() => {
@@ -70,7 +71,7 @@
 		
 <div
 	{id}
-	class="relative w-full h-12 text-left"
+	class={`relative w-full text-left ${classes}`}
 	style="perspective: 200px; transform-origin: center;"
 	bind:this={slotContainer}
 >

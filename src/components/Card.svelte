@@ -1,22 +1,21 @@
 <script>
 	export let id, classes = "", style;
 
-	//#region Padding class
-	const defaultPaddingClass = "p-5";
-	const defaultGapClass = "gap-4";
+	const defaults = [["p", "5"], ["gap", "4"], ["h", "fit"]];
+
 	let c = classes.split(" ");
-	if (!c.find((c) => c.startsWith("p-"))) c.push(defaultPaddingClass);
-	if (!c.find((c) => c.startsWith("gap-"))) c.push(defaultGapClass);
+	defaults.forEach((d) => {
+		if (!c.find((c) => c.startsWith(`${d[0]}-`))) c.push(d.join("-"));
+	});
 	classes = c.join(" ");
-	//#endregion
 </script>
 
 <div
 	{id}
 	class={`
 relative
-flex col gap-4 items-start justify-between
-h-fit w-full 
+flex col items-start justify-between
+w-full 
 text-muted-darker bg-white
 rounded-lg 
 border border-muted-medium

@@ -3,19 +3,30 @@ import Card from "../Card.svelte";
 import Rotator from "./components/Rotator.svelte";
 ---
 
-<Card id="transfers">
+<Card id="transfers" classes="gap-2">
 	<p class="text-xl font-medium">Transfers</p>
 
-	<Rotator id="trans" client:only="svelte">
+	<Rotator id="trans" classes="h-6" client:only="svelte">
 		<p id="trans-1">Mailed check</p>
 		<p id="trans-2">PayPal</p>
 		<p id="trans-3">ACH</p>
 		<p id="trans-4">HCB</p>
 	</Rotator>
+
+	<div class="flex items-center justify-between w-full">
+		<Rotator id="transimg" classes="h-4 w-8" client:only="svelte">
+			<img id="transimg-1" src="/icons/ChequeIcontransfer-.svg" />
+			<img id="transimg-2" src="/icons/PPIcontransfer-.svg" />
+			<p id="transimg-3">ACH</p>
+			<img id="transimg-4" src="/icons/HCBIcontransfer-.svg" />
+		</Rotator>
+		<img src="/icons/arrow.svg" />
+		<img src="/icons/person.svg" />
+	</div>
 </Card>
 
 <style>
-	:global(#trans p) {
+	:global(#trans p, #transimg *) {
 		opacity: 0;
 		position: absolute;
 		transform: rotateX(90deg);
