@@ -5,27 +5,25 @@ const team = await Astro.glob("/public/team/*");
 ---
 
 <div id="container">
-    <div>
-    {team.map((t) => (
-        <Image src={t.default} alt="HCB team member mugshot" />
-    ))}
-    </div>
+	<div>
+		{team.map((t) => <Image src={t.default} alt="HCB team member mugshot" />)}
+	</div>
 </div>
 
 <style>
-    * {
-        --size: 4rem;
-    }
-    #container {
-        display: flex;
-        justify-content: center;
-    }
+	* {
+		--size: 4rem;
+	}
+	#container {
+		display: flex;
+		justify-content: center;
+	}
 
-    img {
-        border-radius: 50%;
-        width: var(--size);
-        height: var(--size);
+	img {
+		border-radius: 50%;
+		width: var(--size);
+		height: var(--size);
 
-        margin-right: calc(var(--size) / -8); /* Overlap each image by 1/8th of its width */
-    }
+		margin-right: calc(var(--size) / -8); /* Overlap each image by 1/8th of its width */
+	}
 </style>

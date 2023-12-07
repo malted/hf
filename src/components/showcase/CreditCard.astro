@@ -1,22 +1,21 @@
 ---
 import { faker } from "@faker-js/faker";
-import Split from "../../lib/Split.astro";
+import Split from "../../lib/Split.svelte";
 
 const cardholderName = faker.person.fullName();
-const cardNumber = faker.finance.creditCardNumber("#### #### #### ####");
+const cardNumber = faker.finance.creditCardNumber("•••• •••• •••• ####");
 const future = faker.date.future();
 const expiryDate =
 	(future.getMonth() + 1).toString().padStart(2, "0") +
 	"/" +
 	future.getFullYear().toString().split("").slice(-2).join("");
-const cvv = faker.finance.creditCardCVV();
 ---
 
 <script>
 	import VanillaTilt from "vanilla-tilt";
 	import anime from "animejs";
 
-	const container = document.querySelector("#cards-container");
+	const container: HTMLElement = document.querySelector("#cards-container");
 
 	let flipped = false;
 	let animating = false;
@@ -79,7 +78,7 @@ const cvv = faker.finance.creditCardCVV();
 			<p>NO: <Split word={cardNumber} /></p>
 			<div class="flex gap-4">
 				<p>EXP: <Split word={expiryDate.toString()} /></p>
-				<p>CVV: <Split word={cvv} /></p>
+				<p>CVV: <Split word="•••" /></p>
 			</div>
 		</div>
 	</div>

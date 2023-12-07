@@ -15,26 +15,26 @@ import Gradient from "../components/Gradient.astro";
 		if (!entry.isIntersecting) return;
 
 		const currentCycle = entry.target.dataset.idx;
-		console.log(currentCycle)
+		console.log(currentCycle);
 		gradients.forEach((el) => {
 			if (el.dataset.idx === currentCycle) {
-				el.classList.add("current-gradient")
+				el.classList.add("current-gradient");
 			} else {
-				el.classList.remove("current-gradient")
+				el.classList.remove("current-gradient");
 			}
-		})
+		});
 	}
 
 	const observer = new IntersectionObserver(observerCallback, { threshold: 0.75 });
 
-	sections.forEach(observer.observe.bind(observer))
+	sections.forEach(observer.observe.bind(observer));
 
 	gradients.forEach((el) => {
 		const gradient = new Gradient();
-        console.log(el);
+		console.log(el);
 		//@ts-ignore
 		gradient.initGradient("#" + el.id.split(" ").find((i) => i.startsWith("gradient-canvas-")));
-	})
+	});
 </script>
 
 <div id="gradient-wrapper">
@@ -45,19 +45,19 @@ import Gradient from "../components/Gradient.astro";
 </div>
 
 <div id="container">
-	<section data-idx=0>
+	<section data-idx="0">
 		<img src="/demo/one.png" />
 	</section>
-	<section data-idx=1>
+	<section data-idx="1">
 		<img src="/demo/two.png" />
 	</section>
-	<section data-idx=2>
+	<section data-idx="2">
 		<img src="/demo/three.png" />
 	</section>
-	<section data-idx=3>
+	<section data-idx="3">
 		<img src="/demo/four.png" />
 	</section>
-	<section data-idx=3>
+	<section data-idx="3">
 		<img src="/demo/five.png" />
 	</section>
 </div>

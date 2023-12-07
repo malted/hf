@@ -11,26 +11,33 @@ import Gradient from "./Gradient.astro";
 	const gradientWrapper = document.getElementById("gradient-wrapper");
 	const gradients = [...gradientWrapper.children];
 	const sections = document.querySelectorAll("main > section");
+	sections.forEach((el: HTMLElement, idx) => (el.dataset.idx = idx.toString()));
 
-    // Initialise the first one
-    gradients[0].classList.add(currentGradientClassName)
+	// Initialise the first one
+	gradients[0].classList.add(currentGradientClassName);
 
 	function observerCallback(entries: IntersectionObserverEntry[]) {
-        const entry = entries[0];
-        if (!entry.isIntersecting) return;
+		const entry = entries[0];
 
-        gradients.forEach((el, idx) => el.classList.toggle(currentGradientClassName, idx === entry.target.dataset.idx))
+		if (!entry.isIntersecting) return;
+
+		gradients.forEach((el, idx) =>
+			el.classList.toggle(
+				currentGradientClassName,
+				idx === parseInt((entry.target as HTMLElement).dataset.idx) % gradients.length
+			)
+		);
 	}
 
 	const observer = new IntersectionObserver(observerCallback, { threshold: 0.75 });
 
-	sections.forEach(observer.observe.bind(observer))
+	sections.forEach(observer.observe.bind(observer));
 
 	gradients.forEach((el) => {
 		const gradient = new Gradient();
 		//@ts-ignore
 		gradient.initGradient("#" + el.id.split(" ").find((i) => i.startsWith("gradient-canvas-")));
-	})
+	});
 </script>
 
 <div id="gradient-wrapper">

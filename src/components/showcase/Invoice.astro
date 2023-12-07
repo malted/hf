@@ -1,6 +1,7 @@
 ---
 import { faker } from "@faker-js/faker";
-import Split from "../../lib/Split.astro";
+import Split from "../../lib/Split.svelte";
+import Card from "../Card.svelte";
 
 const invoiceDetails = {
 	amount: faker.finance.amount(100, 10_000, 2, "$", true),
@@ -13,10 +14,7 @@ const invoiceDetails = {
 };
 ---
 
-<div
-	id="invoice"
-	class="flex col items-start justify-between gap-4 p-5 grow h-fit text-muted-darker bg-white border border-muted-medium rounded-md"
->
+<Card id="invoice">
 	<p class="text-xl font-medium">Send an invoice</p>
 
 	<div class="flex col gap-2 w-full">
@@ -45,4 +43,4 @@ const invoiceDetails = {
 	<div class="bg-muted px-2 py-1 rounded w-full">
 		<p class="text-lg">Send →</p>
 	</div>
-</div>
+</Card>

@@ -1,8 +1,9 @@
 ---
 import { faker } from "@faker-js/faker";
 import { ToWords } from "to-words";
-import Signature from "./Signature.astro";
-import Split from "../../lib/Split.astro";
+import Signature from "./components/Signature.astro";
+import Split from "../../lib/Split.svelte";
+import Card from "../Card.svelte";
 
 const toWords = new ToWords({
 	localeCode: "en-US",
@@ -29,10 +30,8 @@ const chequeDetails = {
 };
 ---
 
-<div
-	id="cheque"
-	class="flex col items-start justify-between gap-6 p-5 grow h-fit text-muted-darker bg-white border border-muted-medium rounded-md relative overflow-hidden"
->
+<Card id="cheque">
+	<!-- class="flex col items-start justify-between gap-6 p-5 grow h-fit text-muted-darker bg-white border border-muted-medium rounded-md relative overflow-hidden" -->
 	<img
 		src="/icons/hcb-simple-green.svg"
 		alt=""
@@ -82,4 +81,4 @@ const chequeDetails = {
 			</p>
 		</div>
 	</div>
-</div>
+</Card>
