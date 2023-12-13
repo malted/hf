@@ -83,15 +83,15 @@ import Documents from "./showcase/Documents.svelte";
 			},
 			500
 		)
-		.add(
-			{
-				targets: "#invoice .placeholder-line",
-				width: (_, i) => [0, i === 1 ? "75%" : "100%"],
-				duration: 800,
-				delay: (el, i) => 150 * i
-			},
-			700
-		)
+		// .add(
+		// 	{
+		// 		targets: "#invoice .placeholder-line",
+		// 		width: (_, i) => [0, i === 1 ? "75%" : "100%"],
+		// 		duration: 800,
+		// 		delay: (el, i) => 150 * i
+		// 	},
+		// 	700
+		// )
 		.add(
 			{
 				targets: "#invoice p .letter",
@@ -102,15 +102,15 @@ import Documents from "./showcase/Documents.svelte";
 			},
 			900
 		)
-		.add(
-			{
-				targets: "#transfers .placeholder-line",
-				width: (_, i) => [0, i === 1 ? "25%" : "100%"],
-				duration: 800,
-				delay: (el, i) => 150 * i
-			},
-			700
-		)
+		// .add(
+		// 	{
+		// 		targets: "#transfers .placeholder-line",
+		// 		width: (_, i) => [0, i === 1 ? "25%" : "100%"],
+		// 		duration: 800,
+		// 		delay: (el, i) => 150 * i
+		// 	},
+		// 	700
+		// )
 		.add(
 			{
 				targets: "#cheque .cheque-body p .letter",
