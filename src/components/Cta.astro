@@ -14,20 +14,16 @@ const { href, variant = CtaVariant.Main }: Props = Astro.props;
 const vars = {
 	[CtaVariant.Main]: {
 		padding: "2rem 3rem",
-		colour: "var(--white)",
-		backgroundColour: "var(--accent)",
-		filter: "invert(1)"
+		backgroundColour: "var(--accent)"
 	},
 	[CtaVariant.Sub]: {
 		padding: "1.25rem 1.875rem",
-		colour: "var(--black)",
-		backgroundColour: "var(--accent-light)",
-		filter: "invert(0)"
+		backgroundColour: "var(--accent-light)"
 	}
 }[variant];
 ---
 
-<a {href}>
+<a {href} target="_blank">
 	<slot />
 	<img src="/icons/enter.svg" />
 </a>
@@ -37,7 +33,7 @@ const vars = {
 		display: flex;
 		margin: auto;
 		padding: var(--padding);
-		width: fit-content;
+		width: 100%;
 		justify-content: center;
 		align-items: center;
 		gap: 0.5em;
@@ -45,17 +41,16 @@ const vars = {
 
 		font-family: var(--font-sans);
 		font-size: 1.3rem;
-		font-weight: bold;
+		font-weight: 500;
 		text-decoration: none;
 
 		border-radius: var(--br);
 
-		color: var(--colour);
+		color: black;
 		background-color: var(--backgroundColour);
 	}
 
 	img {
-		filter: var(--filter);
 		height: 1em;
 	}
 </style>

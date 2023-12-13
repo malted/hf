@@ -38,12 +38,12 @@
 :root {
 	--white: white;
 	--black: #222;
-	--dark-green: #194b30;
+	--dark-green: #274a32;
 	--cta-green: #4de291;
-	--text-green: #2ab469;
+	--text-green: #59b170;
 
 	--bg: var(--white);
-	--accent: #3fb977;
+	--accent: #7adf98;
 	--accent-light: rgba(124, 73, 233, 0.15);
 
 	--font-serif: "IBM Plex Serif", serif;
@@ -81,7 +81,6 @@ body {
 }
 * {
 	box-sizing: border-box;
-	/* border: 1px solid red; */
 }
 
 main {

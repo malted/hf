@@ -10,6 +10,7 @@ import Team from "../components/Team.astro";
 import Logos from "../components/Logos.astro";
 import Changelog from "../components/Changelog.astro";
 import Faq from "../components/Faq.astro";
+import Stats from "../components/Stats.astro";
 
 const staticStats = [
 	{
@@ -34,7 +35,10 @@ const staticStats = [
 <Layout title="The Hack Foundation" background={true}>
 	<section class="mt-8">
 		<header class="flex col gap-8">
-			<h1>Fiscal sponsorship<br />for <em>today's</em> nonprofits.</h1>
+			<h1>
+				Fiscal sponsorship<br />for <em style="text-shadow: 0 0 1em var(--white);">today's</em>
+				 nonprofits.
+			</h1>
 			<div>
 				<p class="font-medium text-2xl">
 					Obtain 501(c)(3) nonprofit status in minutes, not months.
@@ -48,12 +52,18 @@ const staticStats = [
 
 		<Showcase />
 
+		<Stats />
+
+		<Cta href="https://hackclub.com/hcb/apply" variant={CtaVariant.Main}>
+			<p class="text-2xl text-black">Apply for fiscal sponsorship</p>
+		</Cta>
+
 		<p>
 			Organizations that use HCB can send and accept money instantly.<br />
-			<a>Learn more</a>
+			<a href="https://hackclub.com/hcb" target="_blank" class="text-[#a0a0a0] underline"
+				>Learn more</a
+			>
 		</p>
-
-		<Cta href="https://hackclub.com/hcb/apply" variant={CtaVariant.Main}>Become a nonprofit</Cta>
 	</section>
 
 	<section class="h-screen rounded-lg border-2 border-red-300">
