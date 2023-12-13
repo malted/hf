@@ -1,27 +1,44 @@
 ---
 import Card from "../Card.svelte";
 import Rotator from "./components/Rotator.svelte";
+
+const rotateClass = "flex items-center justify-center gap-2 text-xs";
 ---
 
-<Card id="transfers" classes="gap-2">
+<Card id="transfers" classes="gap-4">
 	<p class="text-xl font-medium">Transfers</p>
 
-	<Rotator id="trans" classes="h-6" client:only="svelte">
-		<p id="trans-1">Mailed check</p>
-		<p id="trans-2">PayPal</p>
-		<p id="trans-3">ACH</p>
-		<p id="trans-4">HCB</p>
-	</Rotator>
+	<div class="flex col gap-2 w-full">
+		<div class="w-0 h-1 rounded bg-muted placeholder-line"></div>
+		<div class="w-0 h-1 rounded bg-muted placeholder-line"></div>
+	</div>
 
 	<div class="flex items-center justify-between w-full">
-		<Rotator id="transimg" classes="h-4 w-8" client:only="svelte">
-			<img id="transimg-1" src="/icons/ChequeIcontransfer-.svg" />
-			<img id="transimg-2" src="/icons/PPIcontransfer-.svg" />
-			<p id="transimg-3">ACH</p>
-			<img id="transimg-4" src="/icons/HCBIcontransfer-.svg" />
+		<Rotator id="trans" classes="h-4 w-28" client:only="svelte">
+			<p id="trans-1" class={rotateClass}>
+				Mailed check
+				<span><img src="/icons/ChequeIcontransfer-.svg" /></span>
+			</p>
+
+			<p id="trans-2" class={rotateClass}>
+				PayPal
+				<span><img src="/icons/PPIcontransfer-.svg" /></span>
+			</p>
+
+			<p id="trans-3" class={rotateClass}>
+				ACH
+				<span></span>
+			</p>
+
+			<p id="trans-4" class={rotateClass}>
+				HCB
+				<span><img src="/icons/HCBIcontransfer-.svg" /></span>
+			</p>
 		</Rotator>
-		<img src="/icons/arrow.svg" />
-		<img src="/icons/person.svg" />
+
+		<div class="bg-muted px-2 py-1 rounded w-fit">
+			<p class="text-xs">Send</p>
+		</div>
 	</div>
 </Card>
 

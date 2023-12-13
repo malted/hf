@@ -11,7 +11,10 @@
 		const duration = 2_000;
 		const childCount = slotContainer.children[0].children.length;
 		const restingElementStyle = "transform: translateY(-100%); opacity: 0; rotateX: 90deg;";
-		const elementSelectors = [], animators = [], intervals = [], timeouts = [];
+		const elementSelectors = [],
+			animators = [],
+			intervals = [],
+			timeouts = [];
 		function registerAnimations() {
 			for (let idx = 0; idx < childCount; idx++) {
 				const elementSelector = `#${id} #${id}-${idx + 1}`;
@@ -49,7 +52,9 @@
 				animators.forEach((animator) => animator.pause());
 				intervals.forEach((interval) => clearInterval(interval));
 				timeouts.forEach((timeout) => clearTimeout(timeout));
-				elementSelectors.forEach((selector) => document.querySelector(selector).style = restingElementStyle);
+				elementSelectors.forEach(
+					(selector) => (document.querySelector(selector).style = restingElementStyle)
+				);
 				animators.length = intervals.length = timeouts.length = elementSelectors.length = 0;
 			}
 		}
@@ -68,7 +73,6 @@
 	});
 </script>
 
-		
 <div
 	{id}
 	class={`relative w-full text-left ${classes}`}

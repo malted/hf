@@ -1,7 +1,7 @@
 export default [
 	{ desc: "🌶️ Jalapeños for the steamy social salsa sesh", amount: -9.57 },
-	{ desc: "👩‍💻 Payment for club coding lessons (solid gold; rare; imported)", amount: -127.63 },
-	{ desc: "🍺 Reimbursement for Friday night's team-building pub crawl", amount: -88.9 },
+	{ desc: "👩‍💻 Payment for club coding lessons (solid gold)", amount: -127.63 },
+	{ desc: "🍺 Reimbursement for team-building pub crawl", amount: -88.9 },
 	{ desc: "😨 Monthly payment to the local protection racket", monthly: true, amount: -2_500.0 },
 	{ desc: "🚀 Rocket fuel for Lucas' commute", amount: -50.0 },
 	{ desc: "💰 Donation from t̶͖̯́̒̇͝h̸͇̥̘̖̞̋͛̕ę̷̧̯̓̄͜ ̵̧̡̀̎͋̚v̸̰̰̝͈̟̂̇̏̓ͅo̶͓͈͑̑̄̍i̸͉̺͕̥̓̍d̵̟̮̼̠̺̿͌́", amount: 50_000.0 },
@@ -32,6 +32,6 @@ export default [
 	{ desc: "📲 Mobile app revenue for the month", amount: 1_200.0 },
 	{ desc: "🤝 Sponsorship received for annual tech conference", amount: 5_000.0 },
 	{ desc: "🚀 Dividend from lunar real estate investment", amount: 7_528.46 },
-	{ desc: "💡 Royalties for patenting the perpetual motion machine", amount: 50_000.0 },
-	{ desc: "💼 Briefcase swap profit from a shady but surprisingly honest spy", amount: 800.0 }
+	{ desc: "💡 Perpetual motion machine patent royalties", amount: 50_000.0 },
+	{ desc: "💼 Shady spy briefcase swap profit", amount: 800.0 }
 ];

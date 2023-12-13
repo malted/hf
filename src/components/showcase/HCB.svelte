@@ -1,73 +1,96 @@
 <script>
 	import { onMount } from "svelte";
-import { faker } from "@faker-js/faker";
-import anime from "animejs";
-import ms from "ms";
-import Split from "../../lib/Split.svelte";
-import sorted_raw_mock_transactions from "./components/mock_transactions";
-import { shuffle } from "../../lib/utils.js";
-import Card from "../Card.svelte";
+	import { faker } from "@faker-js/faker";
+	import anime from "animejs";
+	import ms from "ms";
+	import Split from "../../lib/Split.svelte";
+	import sorted_raw_mock_transactions from "./components/mock_transactions";
+	import { shuffle } from "../../lib/utils.js";
+	import Card from "../Card.svelte";
 
-const rawTransactions = shuffle(sorted_raw_mock_transactions);
-const eventName = shuffle(["Klickitat Teaching Garden"])[0];
-const eventBalance = faker.finance.amount(100, 10_000, 2, "", true);
+	const rawTransactions = shuffle(sorted_raw_mock_transactions);
+	const eventName = shuffle(["Klickitat Teaching Garden"])[0];
+	const eventBalance = faker.finance.amount(100, 10_000, 2, "", true);
 
-const cardholders = Array.from(
-	{ length: 5 },
-	() => "https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9"
-);
+	const cardholders = Array.from(
+		{ length: 5 },
+		(_, idx) => idx === 4 ? "https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9" : faker.image.urlLoremFlickr({ category: "people" })
+	);
 
-const formatter = new Intl.NumberFormat("en-US", {
-	style: "currency",
-	currency: "USD",
-	minimumFractionDigits: 2,
-	maximumFractionDigits: 2
-});
+	const formatter = new Intl.NumberFormat("en-US", {
+		style: "currency",
+		currency: "USD",
+	});
 
-const transactionDisplayCount = 10;
-let idx = transactionDisplayCount - 1;
+	let transactionsContainer;
+	const transactionDisplayCount = 10;
+	let idx = transactionDisplayCount - 1;
 
-const transactions = Array.from({ length: transactionDisplayCount }, (_, idx) => {
-	return {
-		avatar: faker.image.urlLoremFlickr(),
-		ms: faker.date.recent().getTime(),
-		amount: rawTransactions[idx].amount,
-		memo: rawTransactions[idx].desc
-	};
-})
-	.filter((t) => !t.memo.includes("withdraw"))
-	.sort((a, b) => b.ms - a.ms)
-	.slice(0, 5);
-
+	let transactions = Array.from({ length: transactionDisplayCount }, (_, idx) => {
+		return {
+			avatar: faker.image.urlLoremFlickr({ category: "people" }),
+			ms: faker.date.recent().getTime(),
+			amount: rawTransactions[idx].amount,
+			memo: rawTransactions[idx].desc
+		};
+	})
+		.filter((t) => !t.memo.includes("withdraw"))
+		.sort((a, b) => b.ms - a.ms)
+		.slice(0, 5);
 
 	function addTransaction() {
 		const t = rawTransactions[++idx % rawTransactions.length];
-		console.log(t);
 		transactions.unshift({
 			avatar: faker.image.urlLoremFlickr(),
 			ms: faker.date.recent().getTime(),
 			amount: t.amount,
 			memo: t.desc
 		});
-		transactions.pop();
+
+		setTimeout(() => {
+			transactions.pop();
+			transactions = transactions;
+		}, 5_000);
+		
+		transactions = transactions;
 	}
 
 	function animateTransaction() {
+		const duration = 1_600;
+		transactionsContainer.dataset.secondlastround = true;
+		setTimeout(() => (transactionsContainer.dataset.secondlastround = false), duration / 3);
+
+		const currentFunc = (el, i) => `${(i * el.clientHeight) + (i * 8)}px`;
+
 		anime({
-			targets: ".transaction",
-			translateY: ["-100%", "0%"],
-			duration: 1000,
+			targets: ".transaction-new",
+			scale: [0.3, 1],
+			top: [(el, i) => `${(-el.clientHeight)}px`, 0],
+			opacity: [0, 1],
+			translateZ: 0,
+			duration,
+		});
+		anime({
+			targets: ".transaction-existing",
+			scale: [(el, i) => i === 5 ? 0 : 1, (el, i) => i === 4 ? 0 : 1],
+			top: [
+				currentFunc,
+				(el, i) => `${((i + 1) * el.clientHeight) + ((i + 1) * 8)}px`,
+			],
+			duration,
 			easing: "easeOutElastic",
-			delay: anime.stagger(100) // Delays the animation for each transaction
+			delay: anime.stagger(80)
 		});
 	}
 
 	onMount(() => {
-		setInterval(() => {
+		const interval = setInterval(() => {
 			addTransaction();
 			animateTransaction();
-		}, 2500);
-	})
+		}, 5_000);
+
+		return () => clearInterval(interval);
+	});
 </script>
 
 <Card id="hcb" classes="p-0 gap-0">
@@ -78,8 +101,8 @@ const transactions = Array.from({ length: transactionDisplayCount }, (_, idx) =>
 	<div class="flex col items-start justify-between gap-6 p-5 h-fit w-full">
 		<div class="flex gap-4 items-center">
 			<img
-				class="rounded-full w-12"
-				src="https://gravatar.com/avatar/e6b620fa331ca06d2429adce433a4df9"
+				class="rounded-full w-12 h-12"
+				src={faker.image.urlLoremFlickr({ category: "nature" })}
 				alt=""
 			/>
 			<p id="event-name" class="text-2xl font-medium">
@@ -107,7 +130,7 @@ const transactions = Array.from({ length: transactionDisplayCount }, (_, idx) =>
 						<img
 							src={url}
 							alt="team member avatar"
-							class="absolute avatar rounded-full w-6 border"
+							class="absolute avatar rounded-full w-6 h-6 border"
 						/>
 					{/each}
 				</div>
@@ -130,9 +153,11 @@ const transactions = Array.from({ length: transactionDisplayCount }, (_, idx) =>
             -->
 			</div>
 
-			<div class="flex col gap-1 w-full rounded-md overflow-hidden text-left">
-				{#each transactions as t}
-					<div class="transaction flex justify-between items-center gap-6 bg-[#F1F1F1] px-2 py-2 w-full translate-y-[-100000px]">
+			<div bind:this={transactionsContainer} class="transactions-container relative h-[14.5rem] flex col gap-1 w-full rounded-md text-left">
+				{#each transactions as t, idx}
+					<div
+						class={`absolute transaction transaction-${idx < 1 ? "new" : "existing"} flex justify-between items-center gap-6 bg-[#F1F1F1] px-2 py-2 w-full h-10 translate-y-[-100000px]`}
+					>
 						<img
 							src={t.avatar}
 							class="rounded-full w-5 h-5 object-cover"
@@ -149,3 +174,17 @@ const transactions = Array.from({ length: transactionDisplayCount }, (_, idx) =>
 		</div>
 	</div>
 </Card>
+
+<style>
+	:global(.transaction-old) {
+		border: 1px solid red;
+	}
+
+	:global(.transaction:first-child) {
+		border-radius: 0.375rem 0.375rem 0 0;
+	}
+	:global(.transaction:last-child),
+	:global(.transactions-container[data-secondlastround=false] .transaction:nth-child(5)) {
+		border-radius: 0 0 0.375rem 0.375rem;
+	}
+</style>
