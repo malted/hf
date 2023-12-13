@@ -4,7 +4,7 @@ import Cheque from "./showcase/Cheque.astro";
 import Invoice from "./showcase/Invoice.astro";
 import CreditCard from "./showcase/CreditCard.astro";
 import Transfers from "./showcase/Transfers.astro";
-import Documents from "./showcase/Documents.astro";
+import Documents from "./showcase/Documents.svelte";
 ---
 
 <script>
@@ -65,12 +65,11 @@ import Documents from "./showcase/Documents.astro";
 		.add(
 			{
 				targets: "#hcb .transaction",
-				scale: [0.3, 1],
-				translateY: ["-100%", 0],
+				scale: [0, 1],
+				top: [0, (el, i) => `${i * el.clientHeight + i * 8}px`],
 				opacity: [0, 1],
-				translateZ: 0,
 				duration: 1_600,
-				delay: (el, i) => 100 * i
+				delay: (_, i) => 80 * i
 			},
 			0
 		)
@@ -105,8 +104,8 @@ import Documents from "./showcase/Documents.astro";
 		)
 		.add(
 			{
-				targets: "#documents .placeholder-line",
-				width: (_, i) => [0, i === 2 ? "40%" : "100%"],
+				targets: "#transfers .placeholder-line",
+				width: (_, i) => [0, i === 1 ? "25%" : "100%"],
 				duration: 800,
 				delay: (el, i) => 150 * i
 			},
@@ -139,14 +138,13 @@ import Documents from "./showcase/Documents.astro";
 				strokeDashoffset: [anime.setDashoffset, 0],
 				easing: "easeInOutSine",
 				duration: 1_000
-				// delay: function(el, i) { return i * 250 },
 			},
 			2000
 		);
 </script>
 
 <div class="flex items-end gap-4 w-full">
-	<div class="w-3/5"><HCB /></div>
+	<div class="w-3/5"><HCB client:load /></div>
 	<div class="flex col gap-4 grow">
 		<div class="flex gap-4 grow">
 			<div class="flex col gap-4 grow">
@@ -155,7 +153,7 @@ import Documents from "./showcase/Documents.astro";
 			</div>
 			<div class="flex col gap-4 justify-end">
 				<Transfers />
-				<Documents />
+				<Documents client:only="svelte" />
 			</div>
 		</div>
 		<Cheque />
