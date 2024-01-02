@@ -6,9 +6,9 @@ module.exports = {
 			colors: {
 				transparent: "transparent",
 				black: "#222",
-				"dark-green": "#194b30",
-				"cta-green": "#4de291",
-				"text-green": "#2ab469",
+				"dark-green": "#8f1b2b",
+				"cta-green": "#ec3750",
+				"text-green": "#c8132c",
 				muted: "#F1F1F1",
 				"muted-medium": "E5E5E5",
 				"muted-darker": "#767676"

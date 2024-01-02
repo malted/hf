@@ -38,12 +38,12 @@
 :root {
 	--white: white;
 	--black: #222;
-	--dark-green: #274a32;
-	--cta-green: #4de291;
-	--text-green: #59b170;
+	--dark-green: #8f1b2b;
+	--cta-green: #ec3750;
+	--text-green: #c8132c;
 
 	--bg: var(--white);
-	--accent: #7adf98;
+	--accent: var(--cta-green);
 	--accent-light: rgba(124, 73, 233, 0.15);
 
 	--font-serif: "IBM Plex Serif", serif;
